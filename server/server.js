@@ -52,7 +52,10 @@ const io = new Server(server, {
   cors: { origin: '*', methods: ['GET', 'POST'] },
 });
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://wechat-3v7m.onrender.com', 'http://localhost:3000', 'http://localhost:5001'],
+  credentials: true,
+}));
 app.use(express.json());
 
 app.use('/api/tasks', taskRoutes);
@@ -92,22 +95,29 @@ app.use('/api/coffeemanga', coffeeMangaRoutes);
 app.use('/api/movies', movieRoutes);
 
 app.get('/api', (req, res) => {
-  res.send('WeGift API is running');
+  res.status(200).json({ 
+    status: 'ok',
+    message: 'WeGift API is running',
+    timestamp: new Date().toISOString(),
+    mongodb: 'checking...'
+  });
 });
 
-app.get('/api/socket-test', (req, res) => {
-  res.json({ connected: io.engine.clientsCount });
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' });
 });
 
 app.use('/api', userRoutes);
 
 const clientBuild = path.join(__dirname, '..', 'client', 'build');
 app.use(express.static(clientBuild));
+
+// Catch-all: serve React app only for non-API requests
 app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    return res.sendFile(path.join(clientBuild, 'index.html'));
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'API endpoint not found', path: req.path });
   }
-  res.status(404).json({ error: 'API route not found' });
+  res.sendFile(path.join(clientBuild, 'index.html'));
 });
 
 io.on('connection', (socket) => {
