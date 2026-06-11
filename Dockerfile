@@ -43,4 +43,4 @@ ENV GAANA_FLASK_PORT=5001
 
 EXPOSE 5000
 
-CMD ["/bin/bash", "/app/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
