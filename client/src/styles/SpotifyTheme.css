@@ -1,0 +1,110 @@
+/* Spotify‑style dark theme with gradient background and glass‑morphism cards */
+:root {
+  --bg-gradient: linear-gradient(135deg, #1e1e2f, #3a3a5a);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-backdrop: blur(12px);
+  --primary-text: #e1e1e6;
+  --secondary-text: #b3b3c1;
+  --accent: #1db954; /* Spotify green */
+}
+
+body {
+  background: var(--bg-gradient);
+  color: var(--primary-text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.spotify-section {
+  padding: 2rem;
+}
+
+.spotify-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.spotify-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.spotify-card img {
+  width: 100%;
+  height: auto;
+}
+.spotify-card-body {
+  padding: 0.75rem;
+}
+.spotify-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-text);
+}
+.spotify-card-artist {
+  font-size: 0.875rem;
+  color: var(--secondary-text);
+}
+.spotify-action-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Gradient hero for the page */
+.spotify-hero {
+  background: var(--bg-gradient);
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+/* Additional utility classes */
+.spotify-tabs {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+}
+.spotify-tab {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: var(--primary-text);
+  cursor: pointer;
+}
+.spotify-tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.spotify-error {
+  color: #ff6b6b;
+  margin-top: 0.5rem;
+}
+
+.spotify-loading {
+  color: var(--secondary-text);
+}
+
+.spotify-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.spotify-playlist-select {
+  margin-top: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  color: var(--primary-text);
+  border: none;
+  padding: 0.25rem;
+}
+
+.spotify-saved-msg {
+  color: var(--accent);
+  margin-left: 0.5rem;
+}

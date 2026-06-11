@@ -1,0 +1,966 @@
+/* ═══════════════════════════════════════════════════════════
+   GitHub Chat — Dark Futuristic Minimal Monospace Chat Layout
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --ghchat-bg: #07090e;
+  --ghchat-sidebar-bg: rgba(7, 9, 14, 0.95);
+  --ghchat-grid-color: rgba(0, 240, 255, 0.03);
+  --ghchat-accent: #00f0ff;
+  --ghchat-accent-purple: #bd00ff;
+  --ghchat-accent-green: #39ff14;
+  --ghchat-accent-amber: #ffaa00;
+  --ghchat-border: rgba(0, 240, 255, 0.15);
+  --ghchat-text: #d8e4f0;
+  --ghchat-text-dim: #708090;
+  --ghchat-card-bg: rgba(10, 15, 26, 0.75);
+  --ghchat-hover: rgba(0, 240, 255, 0.08);
+  --ghchat-sidebar-width: 260px;
+}
+
+.ghchat {
+  display: flex;
+  height: 100vh;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(189, 0, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.06) 0%, transparent 40%),
+    linear-gradient(to bottom, #07090e, #0a0d16);
+  background-color: var(--ghchat-bg);
+  color: var(--ghchat-text);
+  overflow: hidden;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+  position: relative;
+}
+
+.ghchat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--ghchat-grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ghchat-grid-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ghchat-sidebar {
+  width: var(--ghchat-sidebar-width);
+  flex-shrink: 0;
+  background: var(--ghchat-sidebar-bg);
+  border-right: 1px dashed var(--ghchat-border);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow-y: auto;
+  z-index: 2;
+  position: relative;
+}
+
+.ghchat-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.2rem 1.25rem;
+  border-bottom: 1px dashed var(--ghchat-border);
+}
+
+.ghchat-brand-icon {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 5px var(--ghchat-accent));
+}
+
+.ghchat-brand h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, var(--ghchat-accent), var(--ghchat-accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ghchat-repo-input {
+  padding: 0.75rem 1rem;
+}
+
+.ghchat-repo-input input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  color: var(--ghchat-text);
+  font-size: 0.8rem;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.ghchat-repo-input input:focus {
+  border-color: var(--ghchat-accent);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+.ghchat-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.ghchat-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ghchat-text-dim);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  text-align: left;
+  width: 100%;
+}
+
+.ghchat-nav-btn:hover {
+  background: var(--ghchat-hover);
+  color: #fff;
+  border-color: rgba(0, 240, 255, 0.1);
+}
+
+.ghchat-nav-btn.active {
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--ghchat-accent);
+  border-color: var(--ghchat-border);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.ghchat-nav-btn.small {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.6rem;
+}
+
+.ghchat-divider {
+  height: 1px;
+  background: var(--ghchat-border);
+  border-bottom: 1px dashed rgba(0, 240, 255, 0.1);
+  margin: 0.5rem 1rem;
+}
+
+.ghchat-section-label {
+  padding: 0.25rem 1rem;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--ghchat-text-dim);
+  font-weight: 700;
+}
+
+.ghchat-empty-hint {
+  padding: 0.4rem 1rem;
+  font-size: 0.72rem;
+  color: var(--ghchat-text-dim);
+  opacity: 0.5;
+}
+
+.ghchat-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+}
+
+.ghchat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px dashed var(--ghchat-border);
+  flex-shrink: 0;
+  background: rgba(7, 9, 14, 0.8);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.ghchat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ghchat-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ghchat-subtitle {
+  font-size: 0.75rem;
+  color: var(--ghchat-text-dim);
+}
+
+.ghchat-repo-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--ghchat-accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.ghchat-refresh-btn {
+  background: transparent;
+  border: 1px solid var(--ghchat-border);
+  color: var(--ghchat-text-dim);
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.ghchat-refresh-btn:hover {
+  background: var(--ghchat-hover);
+  color: #fff;
+  border-color: var(--ghchat-accent);
+}
+
+.ghchat-tabs {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.ghchat-tab {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--ghchat-border);
+  background: transparent;
+  color: var(--ghchat-text-dim);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.ghchat-tab.active {
+  background: rgba(0, 240, 255, 0.08);
+  border-color: var(--ghchat-accent);
+  color: var(--ghchat-accent);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+}
+
+.ghchat-tab:hover {
+  background: var(--ghchat-hover);
+  color: #fff;
+}
+
+.ghchat-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ghchat-thread-list {
+  width: 300px;
+  flex-shrink: 0;
+  border-right: 1px dashed var(--ghchat-border);
+  overflow-y: auto;
+  padding: 0.75rem;
+  background: rgba(7, 9, 14, 0.3);
+}
+
+.ghchat-thread-card {
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ghchat-thread-card:hover {
+  background: var(--ghchat-hover);
+  border-color: rgba(0, 240, 255, 0.15);
+}
+
+.ghchat-thread-card.active {
+  background: rgba(0, 240, 255, 0.06);
+  border-color: var(--ghchat-accent);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.05);
+}
+
+.ghchat-thread-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.ghchat-thread-icon {
+  font-size: 0.85rem;
+}
+
+.ghchat-thread-state {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.ghchat-thread-state[data-state="open"] {
+  background: rgba(57, 255, 20, 0.1);
+  color: var(--ghchat-accent-green);
+  border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.ghchat-thread-state[data-state="closed"] {
+  background: rgba(255, 0, 127, 0.1);
+  color: #ff007f;
+  border: 1px solid rgba(255, 0, 127, 0.2);
+}
+
+.ghchat-pin-badge,
+.ghchat-fav-badge {
+  font-size: 0.65rem;
+  margin-left: auto;
+}
+
+.ghchat-thread-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.ghchat-thread-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--ghchat-text-dim);
+}
+
+.ghchat-thread-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.ghchat-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.72rem;
+  padding: 0.1rem;
+  opacity: 0.4;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.ghchat-icon-btn:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.ghchat-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ghchat-thread-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px dashed var(--ghchat-border);
+  flex-shrink: 0;
+  background: rgba(7, 9, 14, 0.4);
+}
+
+.ghchat-thread-detail-header h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+
+.ghchat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.ghchat-msg {
+  display: flex;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  max-width: 85%;
+  animation: ghchat-fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes ghchat-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ghchat-msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  margin-left: auto;
+}
+
+.ghchat-msg-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--ghchat-border);
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+}
+
+.ghchat-msg-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ghchat-msg-bubble {
+  background: var(--ghchat-card-bg);
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.ghchat-msg.ai .ghchat-msg-bubble {
+  border-left: 3px solid var(--ghchat-accent-cyan);
+  background: rgba(10, 18, 20, 0.85);
+}
+
+.ghchat-msg.user .ghchat-msg-bubble {
+  border-right: 3px solid var(--ghchat-accent-purple);
+  background: rgba(15, 10, 25, 0.85);
+}
+
+.ghchat-msg-author {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ghchat-accent);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ghchat-msg.user .ghchat-msg-author {
+  color: var(--ghchat-accent-purple);
+}
+
+.ghchat-msg.ai .ghchat-msg-author {
+  color: var(--ghchat-accent-green);
+}
+
+.ghchat-msg-body {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.ghchat-msg-body code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.15rem 0.35rem;
+  border-radius: 2px;
+  font-size: 0.82rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ghchat-msg-body pre {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.85rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+  border: 1px solid var(--ghchat-border);
+}
+
+.ghchat-msg-body pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+}
+
+.ghchat-msg-body a {
+  color: var(--ghchat-accent);
+  text-decoration: underline;
+}
+
+.ghchat-msg-time {
+  font-size: 0.65rem;
+  color: var(--ghchat-text-dim);
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.ghchat-input-area {
+  padding: 1rem 1.5rem;
+  border-top: 1px dashed var(--ghchat-border);
+  flex-shrink: 0;
+  background: rgba(7, 9, 14, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+.ghchat-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  color: var(--ghchat-text);
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.ghchat-input:focus {
+  border-color: var(--ghchat-accent);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.ghchat-input-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.ghchat-gist-btn {
+  background: transparent;
+  border: 1px solid var(--ghchat-border);
+  color: var(--ghchat-text-dim);
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ghchat-gist-btn:hover {
+  background: var(--ghchat-hover);
+  color: #fff;
+  border-color: var(--ghchat-accent);
+}
+
+.ghchat-hint {
+  font-size: 0.68rem;
+  color: var(--ghchat-text-dim);
+  opacity: 0.5;
+  flex: 1;
+}
+
+.ghchat-send-btn {
+  padding: 0.55rem 1.5rem;
+  background: linear-gradient(135deg, var(--ghchat-accent), var(--ghchat-accent-purple));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ghchat-send-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: transparent;
+  color: var(--ghchat-text-dim);
+}
+
+.ghchat-send-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  text-shadow: 0 0 3px #fff;
+}
+
+.ghchat-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 0.75rem;
+  color: var(--ghchat-text-dim);
+}
+
+.ghchat-empty-icon {
+  font-size: 3rem;
+  opacity: 0.3;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.2));
+  animation: ghchat-float 4s ease-in-out infinite alternate;
+}
+
+@keyframes ghchat-float {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+.ghchat-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+  gap: 0.75rem;
+}
+
+.ghchat-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(0, 240, 255, 0.1);
+  border-top: 2px solid var(--ghchat-accent);
+  border-radius: 50%;
+  animation: ghchat-spin 0.8s linear infinite;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+@keyframes ghchat-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ghchat-typing {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.3rem 0;
+}
+
+.ghchat-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--ghchat-accent);
+  border-radius: 50%;
+  animation: ghchat-bounce 1.2s infinite;
+  box-shadow: 0 0 5px var(--ghchat-accent);
+}
+
+.ghchat-dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background: var(--ghchat-accent-purple);
+  box-shadow: 0 0 5px var(--ghchat-accent-purple);
+}
+
+.ghchat-dot:nth-child(3) {
+  animation-delay: 0.4s;
+  background: var(--ghchat-accent-green);
+  box-shadow: 0 0 5px var(--ghchat-accent-green);
+}
+
+@keyframes ghchat-bounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.ghchat-ai-inline {
+  padding: 0.75rem 0;
+  border-top: 1px dashed var(--ghchat-border);
+  margin-top: 0.75rem;
+}
+
+.ghchat-ai-inline-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ghchat-ai-inline-input input {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  color: var(--ghchat-text);
+  font-family: inherit;
+  font-size: 0.82rem;
+  outline: none;
+}
+
+.ghchat-ai-inline-input button {
+  padding: 0.5rem 1rem;
+  background: rgba(57, 255, 20, 0.1);
+  border: 1px solid var(--ghchat-accent-green);
+  border-radius: 4px;
+  color: var(--ghchat-accent-green);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.ghchat-ai-inline-input button:hover {
+  background: rgba(57, 255, 20, 0.2);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.2);
+}
+
+.ghchat-ai {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ghchat-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.ghchat-modal {
+  background: #07090e;
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 560px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+}
+
+.ghchat-modal h3 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.ghchat-modal-input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  color: var(--ghchat-text);
+  font-family: inherit;
+  font-size: 0.82rem;
+  outline: none;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
+}
+
+.ghchat-modal-input:focus {
+  border-color: var(--ghchat-accent);
+}
+
+.ghchat-gist-file {
+  margin-bottom: 0.75rem;
+}
+
+.ghchat-gist-file textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--ghchat-border);
+  border-radius: 4px;
+  color: var(--ghchat-text);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.8rem;
+  outline: none;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.ghchat-gist-file textarea:focus {
+  border-color: var(--ghchat-accent);
+}
+
+.ghchat-modal-remove {
+  background: transparent;
+  border: none;
+  color: #ff007f;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  font-family: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ghchat-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.ghchat-modal-btn {
+  padding: 0.55rem 1.25rem;
+  border: 1px solid var(--ghchat-border);
+  background: transparent;
+  color: var(--ghchat-text);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.ghchat-modal-btn:hover {
+  background: var(--ghchat-hover);
+  color: #fff;
+}
+
+.ghchat-modal-btn.primary {
+  background: linear-gradient(135deg, var(--ghchat-accent), var(--ghchat-accent-purple));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  margin-left: 0.5rem;
+}
+
+.ghchat-modal-btn.primary:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Scrollbars for GitHub chat panels */
+.ghchat-messages::-webkit-scrollbar,
+.ghchat-thread-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ghchat-messages::-webkit-scrollbar-track,
+.ghchat-thread-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ghchat-messages::-webkit-scrollbar-thumb,
+.ghchat-thread-list::-webkit-scrollbar-thumb {
+  background: var(--ghchat-border);
+  border-radius: 3px;
+}
+
+.ghchat-messages::-webkit-scrollbar-thumb:hover,
+.ghchat-thread-list::-webkit-scrollbar-thumb:hover {
+  background: var(--ghchat-accent);
+}
+
+@media (max-width: 768px) {
+  .ghchat-sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px dashed var(--ghchat-border);
+  }
+
+  .ghchat-body {
+    flex-direction: column;
+  }
+
+  .ghchat-thread-list {
+    width: 100%;
+    max-height: 180px;
+    border-right: none;
+    border-bottom: 1px dashed var(--ghchat-border);
+  }
+
+  .ghchat-header {
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    align-items: stretch;
+  }
+
+  .ghchat-header-left {
+    justify-content: space-between;
+  }
+
+  .ghchat-tabs {
+    justify-content: flex-end;
+  }
+
+  .ghchat-msg {
+    max-width: 92%;
+  }
+}

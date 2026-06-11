@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lenovo\\\\Desktop\\\\WeGift\" -Recurse -File -Exclude \"node_modules\")",
+      "Bash(Select-Object -ExpandProperty FullName)"
+    ]
+  }
+}
