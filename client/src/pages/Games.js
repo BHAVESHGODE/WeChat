@@ -3,6 +3,17 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import TicTacToe from '../components/games/TicTacToe';
 import RockPaperScissors from '../components/games/RockPaperScissors';
 import SnakeGame from '../components/games/SnakeGame';
+import MemoryGame from '../components/games/MemoryGame';
+import Twenty48 from '../components/games/Twenty48';
+import SimonSays from '../components/games/SimonSays';
+import WhackAMole from '../components/games/WhackAMole';
+import WordScramble from '../components/games/WordScramble';
+import Minesweeper from '../components/games/Minesweeper';
+import FlappyBird from '../components/games/FlappyBird';
+import ColorMemory from '../components/games/ColorMemory';
+import DinoJump from '../components/games/DinoJump';
+import Hangman from '../components/games/Hangman';
+import NumPuzzle from '../components/games/NumPuzzle';
 
 const API = process.env.REACT_APP_API_URL + '/api/scores';
 
@@ -10,6 +21,17 @@ const GAMES = [
   { key: 'tictactoe', label: 'Tic-Tac-Toe', icon: '❌', desc: 'Classic 3x3', comp: TicTacToe },
   { key: 'rps', label: 'Rock-Paper-Scissors', icon: '🪨', desc: 'Beat the computer', comp: RockPaperScissors },
   { key: 'snake', label: 'Snake', icon: '🐍', desc: 'Grow the snake', comp: SnakeGame },
+  { key: 'memory', label: 'Memory Match', icon: '🧠', desc: 'Find the pairs', comp: MemoryGame },
+  { key: '2048', label: '2048', icon: '🔢', desc: 'Merge the tiles', comp: Twenty48 },
+  { key: 'simon', label: 'Simon Says', icon: '🔴', desc: 'Repeat the pattern', comp: SimonSays },
+  { key: 'whack', label: 'Whack-a-Mole', icon: '🔨', desc: 'Smash those moles', comp: WhackAMole },
+  { key: 'scramble', label: 'Word Scramble', icon: '🔤', desc: 'Unscramble the word', comp: WordScramble },
+  { key: 'minesweeper', label: 'Minesweeper', icon: '💣', desc: 'Avoid the bombs', comp: Minesweeper },
+  { key: 'flappy', label: 'Flappy Bird', icon: '🐤', desc: 'Fly through pipes', comp: FlappyBird },
+  { key: 'colormem', label: 'Color Memory', icon: '🎨', desc: 'Remember colors', comp: ColorMemory },
+  { key: 'dino', label: 'Dino Jump', icon: '🦖', desc: 'Jump the obstacles', comp: DinoJump },
+  { key: 'hangman', label: 'Hangman', icon: '💀', desc: 'Save the stickman', comp: Hangman },
+  { key: 'numpuzzle', label: 'Number Puzzle', icon: '🧩', desc: 'Slide to order', comp: NumPuzzle },
 ];
 
 function Games() {

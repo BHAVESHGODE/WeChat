@@ -1,14 +1,19 @@
 @echo off
-echo Starting WeGift...
+title WeGift
 echo.
-echo Starting Server (port 5000)...
+echo  =============================================
+echo         WeGift — MERN Multi-Feature Platform
+echo  =============================================
+echo.
+echo  Starting Server (port 5000)...
 start "WeGift Server" cmd /c "node server/server.js"
-echo Starting Client (port 3000)...
-start "WeGift Client" cmd /c "cd client && npm start"
 echo.
-echo Server: http://localhost:5000
-echo Client: http://localhost:3000
+echo  =============================================
+echo    OPEN THIS URL IN YOUR BROWSER:
+echo    ^>^> http://localhost:5000
+echo  =============================================
 echo.
-echo Waiting for servers to start...
-ping -n 10 127.0.0.1 >nul
-echo Ready! Open http://localhost:3000 in your browser.
+echo  Waiting for server to start...
+ping -n 8 127.0.0.1 >nul
+echo  Ready! Opening http://localhost:5000 ...
+start http://localhost:5000

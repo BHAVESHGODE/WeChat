@@ -1,0 +1,25 @@
+services:
+  - type: web_service
+    name: wegift
+    env: docker
+    plan: starter
+    runtime: Dockerfile
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: PORT
+        value: "5000"
+      - key: GAANA_FLASK_PORT
+        value: "5001"
+      - key: REACT_APP_API_URL
+        value: "https://<your-render-service>.onrender.com"
+      - key: MONGODB_URI
+        value: "${MONGODB_URI}"
+      - key: AI_API_KEY
+        value: "${AI_API_KEY}"
+      - key: AI_API_URL
+        value: "${AI_API_URL}"
+      - key: AI_MODEL
+        value: "${AI_MODEL}"
+      - key: JWT_SECRET
+        value: "${JWT_SECRET}"
+    autoDeploy: true
